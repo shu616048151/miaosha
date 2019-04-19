@@ -1,9 +1,8 @@
 package com.shu.test;
 
 import org.apache.commons.lang3.StringUtils;
-import org.omg.Messaging.SyncScopeHelper;
 
-import com.shu.MyJedisPool;
+import com.shu.jedis.MyJedisPool;
 
 import redis.clients.jedis.Jedis;
 /**
@@ -41,6 +40,13 @@ public class MyThread implements Runnable{
 		}
 		jedis.close();
 	}
+
+	/**
+	 * 上锁
+	 * @param key
+	 * @param value
+	 * @return
+	 */
 	public boolean lock(String key,String value){
 	    if(jedis.setnx(key, value)==1){//setNX 返回boolean
 	        return true;

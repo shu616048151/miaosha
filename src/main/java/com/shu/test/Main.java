@@ -4,11 +4,11 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.shu.MyJedisPool;
+import com.shu.jedis.MyJedisPool;
 
 import redis.clients.jedis.Jedis;
 /**
- * redis乐观锁的方式实现秒杀
+ * redis悲观锁的方式实现秒杀
  * @author shuxibing
  *
  */
