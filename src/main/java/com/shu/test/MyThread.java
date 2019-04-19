@@ -48,13 +48,14 @@ public class MyThread implements Runnable{
 	 * @return
 	 */
 	public boolean lock(String key,String value){
+		//jedis.setNx()如果原来有锁，就会上锁不成功，没有锁就直接setkey
 	    if(jedis.setnx(key, value)==1){//setNX 返回boolean
 	        return true;
 	    }
-	    //如果锁超时 ***
+	    //如果锁超时,重新设置新的锁
 	    String currentValue = jedis.get(key);
 	    if(!StringUtils.isEmpty(currentValue) && Long.parseLong(currentValue)<System.currentTimeMillis()){
-	        //获取上一个锁的时间
+	        //获取上一个锁的时间，比较value有没有变化
 	        String oldvalue  = jedis.getSet(key,value);
 	        if(!StringUtils.isEmpty(oldvalue)&&oldvalue.equals(currentValue)){
 	            return true;

@@ -2,12 +2,13 @@ package com.shu;
 
 import java.util.List;
 
+import com.shu.jedis.MyJedisPool;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Transaction;
 
 public class MyThread extends Thread{
 	//从连接池中得到jedis
-	private Jedis Jedis=MyJedisPool.getJedis();
+	private Jedis Jedis= MyJedisPool.getJedis();
 	private String customerName;
 	private String key;
 	public MyThread(String customerName,String key) {
