@@ -5,9 +5,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.shu.jedis.MyJedisPool;
+import com.shu.thread.OptiLockThread;
+import com.shu.thread.PessLockThread;
 import redis.clients.jedis.Jedis;
 /**
- * redis乐观锁的方式实现秒杀
+ *
  * @author shuxibing
  *
  */
@@ -42,17 +44,21 @@ public class Main {
 		if (n>0) {
 			for (int i = 0; i < n; i++) {
 				String id=UUID.randomUUID().toString().replace("-", "");
-				executor.execute(new com.shu.MyThread((i+1)+"用户ID:"+id, key));
+				//乐观锁方式
+				executor.execute(new OptiLockThread((i+1)+"用户ID:"+id, key));
+				//悲观锁方式
+				//executor.execute(new PessLockThread((i+1)+"用户ID:"+id, key));
 			}
 		}
 		executor.shutdown();
 		//确认线程是否完全结束
 		while(true){
 			if (executor.isTerminated()) {
+				System.out.println("线程池的线程全部结束");
 				break;
 			}
 			try {
-				Thread.sleep(10);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

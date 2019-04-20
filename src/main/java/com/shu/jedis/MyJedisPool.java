@@ -4,6 +4,9 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
+/**
+ * jedis池
+ */
 public class MyJedisPool {
 	private static JedisPool jedisPool=null;
 	static{
