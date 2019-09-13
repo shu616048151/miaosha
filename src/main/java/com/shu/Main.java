@@ -50,6 +50,7 @@ public class Main {
 				//executor.execute(new PessLockThread((i+1)+"用户ID:"+id, key));
 			}
 		}
+		//当前线程池等待完成
 		executor.shutdown();
 		//确认线程是否完全结束
 		while(true){
@@ -58,6 +59,7 @@ public class Main {
 				break;
 			}
 			try {
+				//当前主线程休眠，等待一段时间在检测
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
