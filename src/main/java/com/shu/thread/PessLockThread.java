@@ -29,6 +29,7 @@ public class PessLockThread implements Runnable{
 		if (lock&&num>0&&num<=200) {
 				jedis.decr(productKey);
 				System.out.println(customerId+"抢购成功,剩余数："+num);
+				jedis.set("pess:"+customerId,""+num);
 				unlock(key, String.valueOf(end));
 		}else {
 			if (num<=0) {				
@@ -46,7 +47,7 @@ public class PessLockThread implements Runnable{
 	 * @param value
 	 * @return
 	 */
-	public boolean lock(String key,String value){
+	public boolean lock(String key, String value){
 		//jedis.setNx()如果原来有锁，就会上锁不成功，没有锁就直接setkey
 	    if(jedis.setnx(key, value)==1){//setNX 返回boolean
 	        return true;

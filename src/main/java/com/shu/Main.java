@@ -45,9 +45,9 @@ public class Main {
 			for (int i = 0; i < n; i++) {
 				String id=UUID.randomUUID().toString().replace("-", "");
 				//乐观锁方式
-				executor.execute(new OptiLockThread((i+1)+"用户ID:"+id, key));
+//				executor.execute(new OptiLockThread((i+1)+"用户ID:"+id, key));
 				//悲观锁方式
-				//executor.execute(new PessLockThread((i+1)+"用户ID:"+id, key));
+				executor.execute(new PessLockThread((i+1)+"用户ID:"+id, key));
 			}
 		}
 		//当前线程池等待完成

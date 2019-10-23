@@ -42,6 +42,7 @@ public class OptiLockThread extends Thread{
 			if (list!=null&&list.size()>0) {
 				for (Object object : list) {
 					System.out.println(customerName+"秒杀成功商品:"+object.toString()+"  当前商品剩余数:"+(200-num+1));
+					Jedis.set("opti:"+customerName.substring(customerName.indexOf(":")+1),""+num);
 				}
 			}else {
 				System.out.println(customerName+"秒杀失败");
